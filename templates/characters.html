@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Folio</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% block content%}
+
+    <h2>I'm extending the base template</h2>
+
+    {% for character in character %}
+        {{ character.character_name }}<br>
+        {{ character.race }}<br>
+        {{ character.character_strength}}<br>
+        {{ character.character_dexterity }}<br>
+        {{ character.character_constitution }}<br>
+        {{ character.character_wisdom }}<br>
+        {{ character.character_intelligence }}<br>
+        {{ character.character_charisma }}<br>
+        {{ character.class_name }}<br>
+        {{ character.background_name }}<br>
+        
+    {% endfor %}
+</body>
+</html>
+    
+{% endblock %}

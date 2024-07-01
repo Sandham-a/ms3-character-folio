@@ -23,6 +23,7 @@ mongo = PyMongo(app)
 @app.route("/get_character")
 def get_character():
     character = mongo.db.character.find()
+    return render_template("characters.html", character=character)
 
 
 if __name__ == "__main__":
