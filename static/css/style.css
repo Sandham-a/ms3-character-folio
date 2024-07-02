@@ -4,6 +4,30 @@ body {
     flex-direction: column;
   }
 
+#background-image{
+    background: url("../images/background_image.jpg");
+    background-size: 100% 100%;
+    background-position: center;
+    backdrop-filter: contrast(15%);
+
+}
+
+.contact-links li{
+    display: inline;
+    padding-left: 0;
+    padding-right:0;
+}
+
+.contact i{
+    align-items: center;
+    color: #fefefe;
+}
+
+.contact i:hover {
+    color: #47555e;
+    transition: all 0.35s ease-in-out;
+  }
+
   main {
     flex: 1 0 auto;
   }
