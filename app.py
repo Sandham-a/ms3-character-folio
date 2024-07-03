@@ -28,6 +28,8 @@ def get_character():
 
 @app.route("/register", methods=["Get","POST"])
 
+@app.route("/register", methods=["Get","POST"])
+
 def register():
     if request.method == "POST":
         # check if username already exists in db
@@ -37,10 +39,25 @@ def register():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
-
+        
+        # check the passwords match 
+        
+        password1 = request.form.get("password")
+        password2 = request.form.get("password2")
+        
+        if password1 != password2:
+            flash("Please make sure your passwords match")
+            return redirect(url_for("register"))
+        
+        # if the username is unique and the passwords match then register the account
+        # in the db
+        
         register = {
+            "first_name": request.form.get("first-name"),
+            "last_name": request.form.get("last-name"),
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "email_address" : request.form.get("email").lower()
         }
         mongo.db.users.insert_one(register)
 
