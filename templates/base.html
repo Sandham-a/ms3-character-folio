@@ -26,13 +26,13 @@
           <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('get_character') }}">Home</a></li>
         {% if session.user %}
-            <li><a href="#">User Profile</a></li>
+            <li><a href="{{ url_for('profile') }}">User Profile</a></li>
             <li><a href="#">New Character</a></li>
             <li><a href="{{ url_for('get_character') }}">Manage Characters</a></li>
-            <li><a href="#">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Log In</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
         {% endif %}
           </ul>
         </div>
@@ -43,13 +43,13 @@
             <li><h4 class = "center-align light-blue-text text-darken-4">Task Manager</h4></li>
             <li><a href="#">Home</a></li>
         {% if session.user %}
-            <li><a href="#">Profile</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
             <li><a href="#">New Character</a></li>
             <li><a href="#">Manage Characters</a></li>
-            <li><a href="#">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
-            <li><a href="#">Log In</a></li>
-            <li><a href="#">Register</a></li>
+        <li><a href="{{ url_for('login') }}">Log In</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
         {% endif %}
         </ul>    
     </header>
@@ -79,7 +79,7 @@
               <h5 class="white-text">Created By: A.Sandham</h5>
             </div>
             <div class="col l4 offset-l2 s12">
-              <ul class="contact-list">
+              <ul class="contact-links">
                 <li class="contact">
                     <a target="_blank" href="https://www.linkedin.com/in/adam-sandham-93109b166/">
                         <i class="fa fa-linkedin" aria-hidden="true"></i>

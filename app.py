@@ -28,6 +28,8 @@ def get_character():
 
 @app.route("/register", methods=["Get","POST"])
 
+@app.route("/register", methods=["Get","POST"])
+
 def register():
     if request.method == "POST":
         # check if username already exists in db
