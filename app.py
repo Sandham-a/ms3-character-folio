@@ -27,9 +27,6 @@ def get_character():
 
 
 @app.route("/register", methods=["Get","POST"])
-
-@app.route("/register", methods=["Get","POST"])
-
 def register():
     if request.method == "POST":
         # check if username already exists in db
@@ -111,6 +108,9 @@ def logout():
     session.pop("user")
     return redirect(url_for("login"))
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
