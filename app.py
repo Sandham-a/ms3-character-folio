@@ -108,6 +108,31 @@ def logout():
     session.pop("user")
     return redirect(url_for("login"))
 
+@app.route("/new_character", methods=["GET","POST"])
+def add_character():
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        task = {
+            "character_name": request.form.get("character_name"),
+            "race": request.form.get("race"),
+            "class_name": request.form.get("class_name"),
+            "background_name": request.form.get("background_name"),
+            "character_strength": request.form.get("character_strength"),
+            "character_dexterity": request.form.get("character_dexterity"),
+            "character_constitution": request.form.get("character_constitution"),
+            "character_intelligence": request.form.get("character_intelligence"),
+            "character_wisdom": request.form.get("character_wisdom"),
+            "character_charisma": request.form.get("character_charisma"),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.insert_one(task)
+        flash("Character Created")
+        return redirect(url_for("new_character"))
+    
+    race = mongo.db.categories.find().sort("race", 1)
+    character_class = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("new_character.html", race=race, character_class = character_class)
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html")

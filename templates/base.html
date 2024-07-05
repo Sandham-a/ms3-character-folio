@@ -21,13 +21,14 @@
     <!--top navbar-->
     <nav class = "nav-extended text-shadow blue-grey darken-4">
         <div class="nav-wrapper">
+            <i class="fas fa-dice-d20"></i>
           <a href="{{ url_for('get_character') }}" class="brand-logo">Character Folio</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
           <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('get_character') }}">Home</a></li>
         {% if session.user %}
             <li><a href="{{ url_for('profile', username=session['user']) }}">User Profile</a></li>
-            <li><a href="#">New Character</a></li>
+            <li><a href="{{ url_for('add_character') }}">New Character</a></li>
             <li><a href="{{ url_for('get_character') }}">Manage Characters</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
@@ -44,8 +45,8 @@
             <li><a href="#">Home</a></li>
         {% if session.user %}
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-            <li><a href="#">New Character</a></li>
-            <li><a href="#">Manage Characters</a></li>
+            <li><a href="{{ url_for('add_character') }}">New Character</a></li>
+            <li><a href="{{ url_for('get_character') }}">Manage Characters</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
         <li><a href="{{ url_for('login') }}">Log In</a></li>
