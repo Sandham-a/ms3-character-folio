@@ -111,7 +111,6 @@ def logout():
 @app.route("/new_character", methods=["GET","POST"])
 def add_character():
     if request.method == "POST":
-        is_urgent = "on" if request.form.get("is_urgent") else "off"
         task = {
             "character_name": request.form.get("character_name"),
             "race": request.form.get("race"),

@@ -1,3 +1,10 @@
+$(document).ready(function(){
+    $('.sidenav').sidenav({edge: "right"});
+    $('.collapsible').collapsible();
+    $('.tooltipped').tooltip();
+    $('select').formSelect();
+  });
+
 function sendMail(contactForm) {
     emailjs.send("service_0fp6dju", "template_k9hm21e", {
         "from_name": contactForm.name.value,
