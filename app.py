@@ -128,9 +128,10 @@ def add_character():
         flash("Character Created")
         return redirect(url_for("new_character"))
     
-    race = mongo.db.categories.find().sort("race", 1)
-    character_class = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("new_character.html", race=race, character_class = character_class)
+    races = mongo.db.race.find().sort("race", 1)
+    backgrounds = mongo.db.background.find().sort("background_name", 1)
+    character_classes = mongo.db.character_class.find().sort("class_name", 1)
+    return render_template("new_character.html", races=races, character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/contact")
 def contact():
