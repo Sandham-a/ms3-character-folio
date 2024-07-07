@@ -1,14 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card-panel">
-               <h3 class="center-align grey-blue-text text-darken-4">
-                {{ username }}'s Profile
-               </h3> 
+<h3 class="light-blue-text text-darken-4 center-align">All Tasks</h3>
+  <div class="row">
+  <div class="col s12 m8 offset-m2">
+      <div class="card-panel">
+        <h3 class="center-align light-blue-text text-darken-4">
+          {{ username }}'s Profile
+        </h3> 
+      </div>
+  </div>
+  </div>
+    <ul class="collapsible">
+        {% for character in characters %}
+          {% if session.user|lower == character.created_by|lower %}
+            <li>
+            <div class="collapsible-header white-text blue-grey darken-4 ">
+                <div class="col s3">
+                  {{ character.character_name }}<br>
+                  {{ character.race }} {{ character.class_name }} <a href="{{ url_for('delete_character', character_id=character._id) }}" 
+                  class="btn-small red darken-4">Delete</a><br>
+                  {{ character.background_name }}<br>
+                    <i class="fas fa-caret-down"></i>  
+                </div>
             </div>
-        </div>
-    </div>
-    
+            <div class="collapsible-body">
+                <strong>Strength</strong> {{ character.character_strength }}<br>
+                <strong>Dexterity</strong> {{ character.character_dexterity }}<br>
+                <strong>Constitution</strong> {{ character.character_constitution }}<br>
+                <strong>Wisdom</strong> {{ character.character_wisdom }}<br>
+                <strong>Intelligence</strong> {{ character.character_intelligence }}<br>
+                <strong>Charisma</strong> {{ character.character_charisma }}
+            </div>
+        </li>
+        {% endif %}  
+        {% endfor %}
+    </ul>
 {% endblock %}
