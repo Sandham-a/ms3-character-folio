@@ -56,6 +56,10 @@ body {
   margin-top: 20px;
 }
 
+.collapsible-body{
+  background-color: #fdfdfd;
+}
+
   main {
     flex: 1 0 auto;
   }

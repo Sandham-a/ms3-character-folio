@@ -22,8 +22,8 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_character")
 def get_character():
-    character = mongo.db.character.find()
-    return render_template("characters.html", character=character)
+    characters = mongo.db.character.find()
+    return render_template("characters.html", characters=characters)
 
 
 @app.route("/register", methods=["Get","POST"])
@@ -134,11 +134,13 @@ def add_character():
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
     return render_template("new_character.html", races=races, character_classes = character_classes, backgrounds=backgrounds)
 
+
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):
     mongo.db.character.delete_one({"_id": ObjectId(character_id)})
     flash("Task Successfully Deleted")
     return redirect(url_for('profile', username=session['user']))
+
 
 @app.route("/contact")
 def contact():

@@ -1,36 +1,26 @@
 {% extends "base.html" %}
 {% block content%}
-
-    <h2>Character Collection</h2>
-
-    <div class="row">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light col s3">
-              <img class="activator" src="images/office.jpg">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">This is a link</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-            </div>
+<ul class="collapsible">
+  {% for character in characters %} 
+    <li>
+      <div class="collapsible-header white-text blue-grey darken-4 ">
+          <div class="col s3">
+            {{ character.character_name }}<br>
+            {{ character.race }} {{ character.class_name }} <a href="{{ url_for('delete_character', character_id=character._id) }}" 
+            class="btn-small red darken-4">Delete</a><br>
+            {{ character.background_name }}<br>
+              <i class="fas fa-caret-down"></i>  
           </div>
-        </div>
-    </div>
-
-    {% for character in character %}
-        {{ character.character_name }}<br>
-        {{ character.race }}<br>
-        {{ character.character_strength}}<br>
-        {{ character.character_dexterity }}<br>
-        {{ character.character_constitution }}<br>
-        {{ character.character_wisdom }}<br>
-        {{ character.character_intelligence }}<br>
-        {{ character.character_charisma }}<br>
-        {{ character.class_name }}<br>
-        {{ character.background_name }}<br>
-        
-    {% endfor %}   
+      </div>
+      <div class="collapsible-body">
+          <strong>Strength</strong> {{ character.character_strength }}<br>
+          <strong>Dexterity</strong> {{ character.character_dexterity }}<br>
+          <strong>Constitution</strong> {{ character.character_constitution }}<br>
+          <strong>Wisdom</strong> {{ character.character_wisdom }}<br>
+          <strong>Intelligence</strong> {{ character.character_intelligence }}<br>
+          <strong>Charisma</strong> {{ character.character_charisma }}
+      </div>
+    </li>
+  {% endfor %}
+</ul>
 {% endblock %}

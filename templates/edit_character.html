@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="blue-grey-text text-darken-4 center-align">Create a New Character</h3>
+
+    <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_character', character_id=character._id) }}">
+            <!-- task name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_name" name="character_name" maxlength="50"
+                        type="text" class="validate" required>
+                    <label for="character_name">{{ character.character_name }}</label>
+                </div>
+            </div>
+            <!-- category selection -->
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
+                    <select id="race" name="race" class="validate" required>
+                        <option value="" disabled selected>Race</option>
+                        {% for race in races %}
+                            <option value="{{ race.race }}">{{ race.race }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="race">{{ character.race }}</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="fas fa-wand=sparkles prefix blue-grey-text text-darken-4"></i>
+                    <select id="class_name" name="class_name" class="validate" required>
+                        <option value="" disabled selected>Choose Class</option>
+                        {% for character_class in character_classes %}
+                            <option value="{{ character_class.class_name }}">{{ character_class.class_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="class_name">{{ character.class_name }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
+                    <select id="background_name" name="background_name" class="validate" required>
+                        <option value="" disabled selected>background</option>
+                        {% for background in backgrounds %}
+                            <option value="{{ background.background_name }}">{{ background.background_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="background">{{ character.background_name }}</label>
+                </div>
+            </div>
+            <!-- Stats -->
+            <div class="row">
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-weight-hanging prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_strength" name="character_strength" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_strength">{{ character.character_strength }}</label>
+                </div>
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-gauge-high prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_dexterity" name="character_dexterity" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_dexterity">{{ character.character_dexterity }}</label>
+                </div>
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-person-falling-burst prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_constitution" name="character_constitution" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_constitution">{{ character.character_constitution }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-lightbulb prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_strength" name="character_strength" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_strength">{{ character.character_wisdom }}</label>
+                </div>
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-brain prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_dexterity" name="character_dexterity" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_dexterity">{{ character.character_intelligence }}</label>
+                </div>
+                <div class="input-field col s1 offset-s2">
+                    <i class="fas fa-comments prefix blue-grey-text text-darken-4"></i>
+                    <input id="character_constitution" name="character_constitution" minlength="1" maxlength="2"
+                        type="text" class="validate" required>
+                    <label for="character_constitution">{{ character.character_charisma }}</label>
+                </div>
+            </div>
+            <!-- submit edits button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button type="submit" class="btn-large blue-grey darken-4">
+                        Submit Changes<i class="fas fa-plus-square right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+            
+{% endblock%}
