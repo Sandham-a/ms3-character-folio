@@ -112,7 +112,7 @@ def logout():
 @app.route("/new_character", methods=["GET","POST"])
 def add_character():
     if request.method == "POST":
-        task = {
+        character = {
             "character_name": request.form.get("character_name"),
             "race": request.form.get("race"),
             "class_name": request.form.get("class_name"),
@@ -125,7 +125,7 @@ def add_character():
             "character_charisma": request.form.get("character_charisma"),
             "created_by": session["user"]
         }
-        mongo.db.tasks.insert_one(task)
+        mongo.db.character.insert_one(character)
         flash("Character Created")
         return redirect(url_for("new_character"))
     
@@ -134,6 +134,32 @@ def add_character():
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
     return render_template("new_character.html", races=races, character_classes = character_classes, backgrounds=backgrounds)
 
+@app.route("/edit_character/<character_id>", methods=["GET", "POST"])
+def edit_character(character_id):
+
+    if request.method == "POST":
+        submit = {
+            "character_name": request.form.get("character_name"),
+            "race": request.form.get("race"),
+            "class_name": request.form.get("class_name"),
+            "background_name": request.form.get("background_name"),
+            "character_strength": request.form.get("character_strength"),
+            "character_dexterity": request.form.get("character_dexterity"),
+            "character_constitution": request.form.get("character_constitution"),
+            "character_intelligence": request.form.get("character_intelligence"),
+            "character_wisdom": request.form.get("character_wisdom"),
+            "character_charisma": request.form.get("character_charisma"),
+            "created_by": session["user"]
+        }
+        mongo.db.character.update({"_id": ObjectId(character_id)}, submit)
+        flash("Character Successfully Updated")
+
+    character_id = mongo.db.character.find_one({"_id": ObjectId(character_id)})
+    races = mongo.db.race.find().sort("race", 1)
+    backgrounds = mongo.db.background.find().sort("background_name", 1)
+    character_classes = mongo.db.character_class.find().sort("class_name", 1)
+    return render_template("edit_character.html", races=races, character_id = character_id,
+                            character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):
