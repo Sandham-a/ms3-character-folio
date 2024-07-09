@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<h3 class="light-blue-text text-darken-4 center-align">All Tasks</h3>
   <div class="row">
   <div class="col s12 m8 offset-m2">
       <div class="card-panel">
@@ -19,7 +18,7 @@
                   {{ character.character_name }}<br>
                   {{ character.race }} {{ character.class_name }} <a href="{{ url_for('delete_character', character_id=character._id) }}" 
                   class="btn-small red darken-4">Delete</a><a href="{{ url_for('edit_character', character_id=character._id) }}" 
-                  class="btn-small Green darken-4">Edit</a>
+                  class="btn-small Green darken-4">Edit</a><br>
                   
                   {{ character.background_name }}<br>
                     <i class="fas fa-caret-down"></i>  

@@ -151,14 +151,14 @@ def edit_character(character_id):
             "character_charisma": request.form.get("character_charisma"),
             "created_by": session["user"]
         }
-        mongo.db.character.update({"_id": ObjectId(character_id)}, submit)
+        mongo.db.character.update_one({"_id": ObjectId(character_id)}, submit)
         flash("Character Successfully Updated")
 
-    character_id = mongo.db.character.find_one({"_id": ObjectId(character_id)})
+    character = mongo.db.character.find_one({"_id": ObjectId(character_id)})
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
-    return render_template("edit_character.html", races=races, character_id = character_id,
+    return render_template("edit_character.html", races=races, character= character,
                             character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
