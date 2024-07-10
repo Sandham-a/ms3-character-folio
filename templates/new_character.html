@@ -4,7 +4,7 @@
     <h3 class="blue-grey-text text-darken-4 center-align">Create a New Character</h3>
 
     <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="{{ url_for('get_character') }}">
+        <form class="col s12" method="POST" action="{{ url_for('add_character') }}">
             <!-- task name -->
             <div class="row">
                 <div class="input-field col s12">
@@ -73,21 +73,21 @@
             <div class="row">
                 <div class="input-field col s1 offset-s2">
                     <i class="fas fa-lightbulb prefix blue-grey-text text-darken-4"></i>
-                    <input id="character_strength" name="character_strength" minlength="1" maxlength="2"
+                    <input id="character_wisdom" name="character_wisdom" minlength="1" maxlength="2"
                         type="text" class="validate" required>
-                    <label for="character_strength">Wis</label>
+                    <label for="character_wisdom">Wis</label>
                 </div>
                 <div class="input-field col s1 offset-s2">
                     <i class="fas fa-brain prefix blue-grey-text text-darken-4"></i>
-                    <input id="character_dexterity" name="character_dexterity" minlength="1" maxlength="2"
+                    <input id="character_intelligence" name="character_intelligence" minlength="1" maxlength="2"
                         type="text" class="validate" required>
-                    <label for="character_dexterity">Int</label>
+                    <label for="character_intelligence">Int</label>
                 </div>
                 <div class="input-field col s1 offset-s2">
                     <i class="fas fa-comments prefix blue-grey-text text-darken-4"></i>
-                    <input id="character_constitution" name="character_constitution" minlength="1" maxlength="2"
+                    <input id="character_charisma" name="character_charisma" minlength="1" maxlength="2"
                         type="text" class="validate" required>
-                    <label for="character_constitution">Cha</label>
+                    <label for="character_charisma">Cha</label>
                 </div>
             </div>
             <!-- submit button -->

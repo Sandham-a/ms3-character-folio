@@ -164,7 +164,7 @@ def edit_character(character_id):
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):
     mongo.db.character.delete_one({"_id": ObjectId(character_id)})
-    flash("Task Successfully Deleted")
+    flash("Character Successfully Deleted")
     return redirect(url_for('profile', username=session['user']))
 
 
