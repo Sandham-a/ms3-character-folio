@@ -22,7 +22,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_character")
 def get_character():
-    characters = list(mongo.db.character.find())
+    characters = mongo.db.character.find()
     return render_template("characters.html", characters=characters)
 
 
@@ -127,7 +127,7 @@ def add_character():
         }
         mongo.db.character.insert_one(character)
         flash("Character Created")
-        return redirect(url_for("get_character"))
+        return redirect(url_for("new_character"))
     
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
@@ -158,13 +158,13 @@ def edit_character(character_id):
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
-    return render_template("edit_character.html", character= character, races=races, 
+    return render_template("edit_character.html", races=races, character= character,
                             character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):
     mongo.db.character.delete_one({"_id": ObjectId(character_id)})
-    flash("Character Successfully Deleted")
+    flash("Task Successfully Deleted")
     return redirect(url_for('profile', username=session['user']))
 
 
