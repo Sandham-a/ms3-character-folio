@@ -22,7 +22,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_character")
 def get_character():
-    characters = mongo.db.character.find()
+    characters = list(mongo.db.character.find())
     return render_template("characters.html", characters=characters)
 
 
@@ -127,7 +127,7 @@ def add_character():
         }
         mongo.db.character.insert_one(character)
         flash("Character Created")
-        return redirect(url_for("new_character"))
+        return redirect(url_for("get_character"))
     
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
