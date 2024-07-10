@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix blue-grey-text text-darken-4"></i>
-                    <input id="character_name" name="Name" maxlength="50"
+                    <input id="character_name" name="Ncharacter_name" maxlength="50"
                         type="text" class="validate">
                     <label for="character_name">{{ character.character_name }}</label>
                 </div>
@@ -26,6 +26,25 @@
                     </select>
                     <label for="race">Race</label>
                 </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="fas fa-wand=sparkles prefix blue-grey-text text-darken-4"></i>
+                        <select id="class_name" name="class_name" class="validate" required>
+                            <option value="" disabled selected>{{ character.class_name }}</option>
+                            {% for character_class in character_classes %}
+                                {% if character_class.class_name == character.class_name %}
+                                    <option value="{{ character_class.class_name }}" selected>{{ character_class.class_name }}</option>
+                                {% else %}
+                                    <option value="{{ character_class }}">{{ character_class.class_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="class_name">Class</label>
+                    </div>
+                </div>
+
+
                 <div class="input-field col s6">
                     <i class="fas fa-wand=sparkles prefix blue-grey-text text-darken-4"></i>
                     <select id="class_name" name="class_name" class="validate" required>
@@ -43,10 +62,14 @@
                     <select id="background_name" name="background_name" class="validate" required>
                         <option value="" disabled selected>{{ character.background_name }}</option>
                         {% for background in backgrounds %}
-                            <option value="{{ background.background_name }}">{{ background.background_name }}</option>
+                            {% if background.background_name == character.background_name %}
+                                <option value="{{ background.background_name }}" selected>{{ background.background_name }}</option>
+                            {% else %}
+                                <option value="{{ background }}">{{ background.background_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
-                    <label for="background">Background</label>
+                    <label for="background_name">Background</label>
                 </div>
             </div>
             <!-- Stats -->
@@ -96,7 +119,7 @@
                     <button type="submit" class="btn-large blue-grey darken-4">
                         Submit Changes<i class="fas fa-plus-square right"></i>
                     </button>
-                    <a href="{{ url_for('profile', username=session['user']) }}" class="btn-large red text-shadow">
+                    <a href="{{ url_for('profile', username=session['user']) }}" class="btn-large red">
                         Cancel <i class="fas fa-times-circle right"></i>
                     </a>
                 </div>

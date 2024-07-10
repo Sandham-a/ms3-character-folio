@@ -158,7 +158,7 @@ def edit_character(character_id):
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
-    return render_template("edit_character.html", races=races, character= character,
+    return render_template("edit_character.html", character= character, races=races, 
                             character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
