@@ -20,10 +20,41 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_character")
-def get_character():
-    characters = mongo.db.character.find()
-    return render_template("characters.html", characters=characters)
+@app.route("/login", methods=["GET","POST"])
+def login():
+    if request.method == "POST":
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})        
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                existing_user["password"], request.form.get("password")):
+                        session["user"] = request.form.get("username").lower()
+                        flash("Welcome, {}".format(
+                            request.form.get("username")))
+                        return redirect(url_for(
+                            "profile", username=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+        else: 
+            flash("Incorrect Username or Password")
+            return redirect(url_for("login"))
+    return render_template("login.html")
+
+#get to the users profile page
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    
+    if session["user"]:
+        characters = list(mongo.db.character.find())
+        return render_template("profile.html", username=username, characters=characters)
+    
+    return redirect(url_for("login"))
 
 
 @app.route("/register", methods=["Get","POST"])
@@ -66,41 +97,11 @@ def register():
     return render_template("register.html")
 
 #logging into account
-@app.route("/login", methods=["GET","POST"])
-def login():
-    if request.method == "POST":
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})        
-        if existing_user:
-            # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        flash("Welcome, {}".format(
-                            request.form.get("username")))
-                        return redirect(url_for(
-                            "profile", username=session["user"]))
-            else:
-                # invalid password match
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
-        else: 
-            flash("Incorrect Username or Password")
-            return redirect(url_for("login"))
-    return render_template("login.html")
 
-#get to the users profile page
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    
-    if session["user"]:
-        characters = list(mongo.db.character.find())
-        return render_template("profile.html", username=username, characters=characters)
-    
-    return redirect(url_for("login"))
+@app.route("/get_character")
+def get_character():
+    characters = mongo.db.character.find()
+    return render_template("characters.html", characters=characters)
 
 @app.route("/logout")
 def logout():
@@ -157,9 +158,9 @@ def edit_character(character_id):
     character = mongo.db.character.find_one({"_id": ObjectId(character_id)})
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
-    character_classes = mongo.db.character_class.find().sort("class_name", 1)
+    character_class = mongo.db.character_class.find().sort("class_name", 1)
     return render_template("edit_character.html", races=races, character= character,
-                            character_classes = character_classes, backgrounds=backgrounds)
+                            character_class = character_class, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):

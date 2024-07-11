@@ -9,26 +9,15 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix blue-grey-text text-darken-4"></i>
-                    <input id="character_name" name="Ncharacter_name" maxlength="50"
+                    <input id="character_name" name="character_name" maxlength="50"
                         type="text" class="validate">
                     <label for="character_name">{{ character.character_name }}</label>
                 </div>
             </div>
             <!-- category selection -->
             <div class="row">
-                <div class="input-field col s6">
+               <div class="input-field col s6">
                     <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
-                    <select id="race" name="race" class="validate" required>
-                        <option value="" disabled selected>{{ character.race }}</option>
-                        {% for race in races %}
-                            <option value="{{ race.race }}">{{ race.race }}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="race">Race</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <i class="fas fa-wand=sparkles prefix blue-grey-text text-darken-4"></i>
                     <select id="race" name="race" class="validate" required>
                         <option value="" disabled selected>{{ character.race }}</option>
                         {% for race in races %}
@@ -39,11 +28,8 @@
                             {% endif %}
                         {% endfor %}
                     </select>
-                    <label for="class_name">Class</label>
+                    <label for="race">Race</label>
                 </div>
-            </div>
-
-                <div class="row">
                     <div class="input-field col s6">
                         <i class="fas fa-wand=sparkles prefix blue-grey-text text-darken-4"></i>
                         <select id="class_name" name="class_name" class="validate" required>
@@ -58,8 +44,8 @@
                         </select>
                         <label for="class_name">Class</label>
                     </div>
-                </div>
             </div>
+
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
