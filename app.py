@@ -128,7 +128,7 @@ def add_character():
         }
         mongo.db.character.insert_one(character)
         flash("Character Created")
-        return redirect(url_for("new_character"))
+        return redirect(url_for("add_character"))
     
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
@@ -139,28 +139,45 @@ def add_character():
 def edit_character(character_id):
 
     if request.method == "POST":
-        submit = {
-            "character_name": request.form.get("character_name"),
-            "race": request.form.get("race"),
-            "class_name": request.form.get("class_name"),
-            "background_name": request.form.get("background_name"),
-            "character_strength": request.form.get("character_strength"),
-            "character_dexterity": request.form.get("character_dexterity"),
-            "character_constitution": request.form.get("character_constitution"),
-            "character_intelligence": request.form.get("character_intelligence"),
-            "character_wisdom": request.form.get("character_wisdom"),
-            "character_charisma": request.form.get("character_charisma"),
-            "created_by": session["user"]
-        }
-        mongo.db.character.update_one({"_id": ObjectId(character_id)}, submit)
-        flash("Character Successfully Updated")
+        # Get form data
+        character_name = request.form.get("character_name")
+        race = request.form.get("race")
+        class_name = request.form.get("class_name")
+        background_name = request.form.get("background_name")
+        character_strength = request.form.get("character_strength")
+        character_dexterity = request.form.get("character_dexterity")
+        character_constitution = request.form.get("character_constitution")
+        character_intelligence = request.form.get("character_intelligence")
+        character_wisdom = request.form.get("character_wisdom")
+        character_charisma = request.form.get("character_charisma")
+
+        # Update the character document
+        mongo.db.character.update_one(
+            {"_id": ObjectId(character_id)},
+            {
+                "$set": {
+                    "character_name": character_name,
+                    "race": race,
+                    "class_name": class_name,
+                    "background_name": background_name,
+                    "character_strength": character_strength,
+                    "character_dexterity": character_dexterity,
+                    "character_constitution": character_constitution,
+                    "character_intelligence": character_intelligence,
+                    "character_wisdom": character_wisdom,
+                    "character_charisma": character_charisma
+                }
+            }
+        )
+        flash("Character Updated Successfully")
+        return redirect(url_for("get_character"))
 
     character = mongo.db.character.find_one({"_id": ObjectId(character_id)})
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
-    character_class = mongo.db.character_class.find().sort("class_name", 1)
+    character_classes = mongo.db.character_class.find().sort("class_name", 1)
     return render_template("edit_character.html", races=races, character= character,
-                            character_class = character_class, backgrounds=backgrounds)
+                            character_classes = character_classes, backgrounds=backgrounds)
 
 @app.route("/delete_character/<character_id>")
 def delete_character(character_id):

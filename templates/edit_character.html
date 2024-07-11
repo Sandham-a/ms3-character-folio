@@ -5,7 +5,7 @@
 
     <div class="row card-panel grey lighten-5">
         <form class="col s12" method="POST" action="{{ url_for('edit_character', character_id=character._id) }}">
-            <!-- task name -->
+            <!-- character name -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix blue-grey-text text-darken-4"></i>
@@ -14,14 +14,14 @@
                     <label for="character_name">{{ character.character_name }}</label>
                 </div>
             </div>
-            <!-- category selection -->
+            <!-- race and class selection -->
             <div class="row">
                <div class="input-field col s6">
                     <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
                     <select id="race" name="race" class="validate" required>
                         <option value="" disabled selected>{{ character.race }}</option>
                         {% for race in races %}
-                            {% if character_class.race == race.race %}
+                            {% if character.race == race.race %}
                                 <option value="{{ race.race }}" selected>{{ race.race }}</option>
                             {% else %}
                                 <option value="{{ race }}">{{ race.race }}</option>
@@ -45,7 +45,6 @@
                         <label for="class_name">Class</label>
                     </div>
             </div>
-
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-users prefix blue-grey-text text-darken-4"></i>
