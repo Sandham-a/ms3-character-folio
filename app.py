@@ -128,12 +128,12 @@ def add_character():
         }
         mongo.db.character.insert_one(character)
         flash("Character Created")
-        return redirect(url_for("add_character"))
+        return redirect(url_for("new_character"))
     
     races = mongo.db.race.find().sort("race", 1)
     backgrounds = mongo.db.background.find().sort("background_name", 1)
     character_classes = mongo.db.character_class.find().sort("class_name", 1)
-    return render_template("new_character.html", races=races, character_classes = character_classes, backgrounds=backgrounds)
+    return render_template("new_character.html", races=races, character_classes=character_classes, backgrounds=backgrounds)
 
 @app.route("/edit_character/<character_id>", methods=["GET", "POST"])
 def edit_character(character_id):
